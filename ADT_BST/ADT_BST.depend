@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1541029835 source:c:\users\henry bernardo\documents\ufrgs\2º semestre (2018-2)\cadeiras\estrutura de dados\utilidade\adt_bst\main.c
+	<stdio.h>
+	<stdlib.h>
+	"TAD_BST.h"
+
