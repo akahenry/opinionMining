@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1541177216 source:c:\users\henry bernardo\documents\ufrgs\2º semestre (2018-2)\cadeiras\estrutura de dados\utilidade\adt_avl\adt_avl.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ADT_AVL.h"
+
+1541179921 c:\users\henry bernardo\documents\ufrgs\2º semestre (2018-2)\cadeiras\estrutura de dados\utilidade\adt_avl\adt_avl.h
+
+1541167044 source:c:\users\henry bernardo\documents\ufrgs\2º semestre (2018-2)\cadeiras\estrutura de dados\utilidade\adt_avl\main.c
+	<stdio.h>
+	<stdlib.h>
+	"ADT_AVL.h"
+
