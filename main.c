@@ -14,6 +14,8 @@ int main(int argc, char *argv[])
   FILE* words;
   FILE* output;
 
+  int word_count = 0;
+
   int flag = 0;
   int factorFlagValue = 0;
   int *factorFlag = &factorFlagValue;
@@ -78,12 +80,18 @@ int main(int argc, char *argv[])
 
               bst_Tree = BST_insertion(bst_Tree, bufferString, auxiliarValue);  // Inserting in BST.
               avl_Tree = AVL_insertion(avl_Tree, bufferString, factorFlag, auxiliarValue);  // Inserting in AVL.
+
+              word_count++; // Incrementing word count for future analysis
             }
           }
         }
       }
     }
   }
+
+  printf("number of words: %d\n", word_count);
+  printf("BST height: %d\n", BST_height(bst_Tree));
+  printf("AVL height: %d\n", AVL_height(avl_Tree));
 
   return flag;
 }

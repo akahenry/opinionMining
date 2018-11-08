@@ -107,6 +107,23 @@ BSTNode* BST_maxNode(BSTNode* tree)
   return answer;
 }
 
+int BST_height(BSTNode* tree)
+{
+  int right = 0;
+  int left = 0;
+  if(tree == NULL)
+    return 0;
+  else
+  {
+    right = BST_height(tree->right);
+    left = BST_height(tree->left);
+    if(right > left)
+      return 1 + right;
+    else
+      return 1 + left;
+  }
+}
+
 int BST_print(BSTNode* tree, char* operation)
 {
   int answer = 1;

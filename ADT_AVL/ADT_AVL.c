@@ -195,6 +195,23 @@ AVLNode* AVL_maxNode(AVLNode* tree)
   return answer;
 }
 
+int AVL_height(AVLNode* tree)
+{
+    int right = 0;
+    int left = 0;
+    if(tree == NULL)
+      return 0;
+    else
+    {
+      right = AVL_height(tree->right);
+      left = AVL_height(tree->left);
+      if(right > left)
+        return 1 + right;
+      else
+        return 1 + left;
+    }
+}
+
 int AVL_print(AVLNode* tree, char* operation)
 {
   int answer = 1;
