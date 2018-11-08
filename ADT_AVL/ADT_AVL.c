@@ -10,13 +10,13 @@ AVLNode* AVL_initialize(void)
   return NULL;
 }
 
-AVLNode* AVL_insertion(AVLNode* tree, int info, int* flag)
+AVLNode* AVL_insertion(AVLNode* tree, char *info, int* flag, int value)
 {
   if(tree)
   {
-    if(info > tree->info)
+    if(strcmp(info, tree->info) > 0)
     {
-      tree->right = AVL_insertion(tree->right, info, flag);   // Inserts node
+      tree->right = AVL_insertion(tree->right, info, flag, value);   // Inserts node
 
       if(*flag) // If flag != 0
       {
@@ -41,7 +41,7 @@ AVLNode* AVL_insertion(AVLNode* tree, int info, int* flag)
     }
     else
     {
-      tree->left = AVL_insertion(tree->left, info, flag);   // Inserts node
+      tree->left = AVL_insertion(tree->left, info, flag, value);   // Inserts node
 
       if(*flag) // If flag != 0
       {
@@ -67,8 +67,9 @@ AVLNode* AVL_insertion(AVLNode* tree, int info, int* flag)
   }
   else  // The tree is NULL
   {
-    tree = malloc(sizeof(AVLNode));
-    tree->info = info;
+    tree = (AVLNode*)malloc(sizeof(AVLNode));
+    strcpy(tree->info, info);
+    tree->value = value;
     tree->right = NULL;
     tree->left = NULL;
     tree->balanceFactor = 0;
@@ -119,18 +120,18 @@ AVLNode* AVL_double_rotateRight(AVLNode* tree)
   return tree;
 }
 
-AVLNode* AVL_remove(AVLNode* tree, int info)
+AVLNode* AVL_remove(AVLNode* tree, char *info)
 {
   AVLNode* answer = tree;
   AVLNode* temp;
 
   if(tree)  // If tree != NULL.
   {
-    if(info > tree->info)   // Checking in the right sub-tree.
+    if(strcmp(info, tree->info) > 0)   // Checking in the right sub-tree.
     {
       tree->right = AVL_remove(tree->right, info);
     }
-    else if(info < tree->info)    // Checking in the left sub-tree.
+    else if(strcmp(info, tree->info) < 0)    // Checking in the left sub-tree.
     {
       tree->left = AVL_remove(tree->left, info);
     }
@@ -151,7 +152,7 @@ AVLNode* AVL_remove(AVLNode* tree, int info)
       else    // tree has two sub-trees
       {
         temp = AVL_maxNode(tree->left);   // Finding the maximum key node.
-        tree->info = temp->info;      // Putting the temp->info in the tree->info.
+        strcpy(tree->info, temp->info);      // Putting the temp->info in the tree->info.
         tree->left = AVL_remove(tree->left, temp->info);  // Deleting the node which has the same temp->info, as we already have changed the nodes.
         answer = tree;
       }
@@ -161,17 +162,17 @@ AVLNode* AVL_remove(AVLNode* tree, int info)
   return answer;
 }
 
-AVLNode* AVL_consult(AVLNode* tree, int info)
+AVLNode* AVL_consult(AVLNode* tree, char *info)
 {
   AVLNode* answer = NULL;  // Initializing return.
 
   if(tree)  // If tree isn't a NULL pointer, it must check the info.
   {
-    if(info == tree->info)
+    if(strcmp(info, tree->info) == 0)
       answer = tree;   // answer = info
     else
     {
-      if(info > tree->info)   // If info is greater than info's tree, the answer will be the result of right consult.
+      if(strcmp(info,tree->info) > 0)   // If info is greater than info's tree, the answer will be the result of right consult.
         answer = AVL_consult(tree->right, info);
       else                    // Else, it must be the result of left consult.
         answer = AVL_consult(tree->left, info);
@@ -246,7 +247,7 @@ void AVL_prefixedL(AVLNode* tree, int aux)
       for(i = 0; i < aux; i++)  // Printing the "stairs".
         printf("=");
 
-      printf("%d\n", tree->info);
+      puts(tree->info);
 
       AVL_prefixedL(tree->left, aux+1);
       AVL_prefixedL(tree->right, aux+1);
@@ -254,7 +255,7 @@ void AVL_prefixedL(AVLNode* tree, int aux)
   }
   else
   {
-    printf("%d\n", tree->info);
+    puts(tree->info);
 
     AVL_prefixedL(tree->left, aux);
     AVL_prefixedL(tree->right, aux);
@@ -272,7 +273,7 @@ void AVL_prefixedR(AVLNode* tree, int aux)
       for(i = 0; i < aux; i++)  // Printing the "stairs".
         printf("=");
 
-      printf("%d\n", tree->info);
+      puts(tree->info);
 
       AVL_prefixedR(tree->right, aux+1);
       AVL_prefixedR(tree->left, aux+1);
@@ -280,7 +281,7 @@ void AVL_prefixedR(AVLNode* tree, int aux)
   }
   else
   {
-    printf("%d\n", tree->info);
+    puts(tree->info);
 
     AVL_prefixedR(tree->right, aux);
     AVL_prefixedR(tree->left, aux);
@@ -315,7 +316,7 @@ void AVL_postfixedL(AVLNode* tree, int aux)
       for(i = 0; i < aux; i++)  // Printing the "stairs".
         printf("=");
 
-      printf("%d\n", tree->info);
+      puts(tree->info);
     }
   }
   else
@@ -323,7 +324,7 @@ void AVL_postfixedL(AVLNode* tree, int aux)
     AVL_postfixedL(tree->left, aux);
     AVL_postfixedL(tree->right, aux);
 
-    printf("%d\n", tree->info);
+    puts(tree->info);
   }
 }
 
@@ -341,7 +342,7 @@ void AVL_postfixedR(AVLNode* tree, int aux)
       for(i = 0; i < aux; i++)  // Printing the "stairs".
         printf("=");
 
-      printf("%d\n", tree->info);
+      puts(tree->info);
     }
   }
   else
@@ -349,7 +350,7 @@ void AVL_postfixedR(AVLNode* tree, int aux)
     AVL_postfixedR(tree->right, aux);
     AVL_postfixedR(tree->left, aux);
 
-    printf("%d\n", tree->info);
+    puts(tree->info);
   }
 }
 
@@ -380,7 +381,7 @@ void AVL_centerL(AVLNode* tree, int aux)
       for(i = 0; i < aux; i++)  // Printing the "stairs".
         printf("=");
 
-      printf("%d\n", tree->info);
+      puts(tree->info);
 
       AVL_centerL(tree->right, aux+1);
     }
@@ -389,7 +390,7 @@ void AVL_centerL(AVLNode* tree, int aux)
   {
     AVL_centerL(tree->left, aux);
 
-    printf("%d\n", tree->info);
+    puts(tree->info);
 
     AVL_centerL(tree->right, aux);
   }
@@ -408,7 +409,7 @@ void AVL_centerR(AVLNode* tree, int aux)
       for(i = 0; i < aux; i++)  // Printing the "stairs".
         printf("=");
 
-      printf("%d\n", tree->info);
+      puts(tree->info);
 
       AVL_centerR(tree->left, aux+1);
     }
@@ -417,7 +418,7 @@ void AVL_centerR(AVLNode* tree, int aux)
   {
     AVL_centerR(tree->right, aux);
 
-    printf("%d\n", tree->info);
+    puts(tree->info);
 
     AVL_centerR(tree->left, aux);
   }

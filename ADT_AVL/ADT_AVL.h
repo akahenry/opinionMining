@@ -1,7 +1,8 @@
 typedef struct STR_AVLNode
 {
-  int info;
+  char info[50];
   int balanceFactor;
+  int value;
   struct STR_AVLNode *left;
   struct STR_AVLNode *right;
 }AVLNode;
@@ -10,14 +11,14 @@ typedef struct STR_AVLNode
 /* Returns a NULL pointer */
 AVLNode* AVL_initialize(void);
 
-/// AVL_insertion: AVLNode* int *int -> AVLNode*
+/// AVL_insertion: AVLNode* char* int* int -> AVLNode*
 /* Inserts a new node in the given AVL tree, returning the new AVL tree with it.
    This function uses 4 others functions to balance the new tree:
     - AVL_rotateLeft
     - AVL_rotateRight
     - AVL_double_rotateLeft
     - AVL_double_rotateRight */
-AVLNode* AVL_insertion(AVLNode* tree, int info, int* flag);
+AVLNode* AVL_insertion(AVLNode* tree, char *info, int* flag, int value);
 
 /// AVL_rotateLeft: AVLNode* -> AVLNode*
 /* Rotate to left the tree, usually to balance it. */
@@ -43,13 +44,13 @@ AVLNode* AVL_double_rotateLeft(AVLNode* tree);
     - AVL_rotateRight */
 AVLNode* AVL_double_rotateRight(AVLNode* tree);
 
-/// AVL_remove: AVLNode* int -> AVLNode*
+/// AVL_remove: AVLNode* char* -> AVLNode*
 /* Given an info and a tree, it returns another tree without the node which had this info. */
-AVLNode* AVL_remove(AVLNode* tree, int info);
+AVLNode* AVL_remove(AVLNode* tree, char *info);
 
-/// AVL_consult: AVLNode* int -> AVLNode*
+/// AVL_consult: AVLNode* char* -> AVLNode*
 /* Given an info and a tree, it returns a pointer to a node which has this info. If there isn't a info with this info, returns NULL. */
-AVLNode* AVL_consult(AVLNode* tree, int info);
+AVLNode* AVL_consult(AVLNode* tree, char *info);
 
 /// AVL_maxNode: AVLNode* -> AVLNode*
 /* Given a tree, this function returns a node which has the maximum key value. */

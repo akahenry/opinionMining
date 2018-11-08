@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#include "TAD_BST.h"
+#include "ADT_BST.h"
 
 int main()
 {
   BSTNode *tree, *auxTree;
-  int op, aux;
+  int op, auxiliar;
+  char bufferString[100];
+
 
   tree = BST_initialize();  // Initializing tree
 
@@ -29,22 +32,24 @@ int main()
         break;
 
       case 2:
-        printf("Enter with a value to put in the tree: ");
-        scanf("%d", &aux);
+        printf("Enter with a string to put in the tree: ");
+        fflush(stdin);
+        gets(bufferString);
 
-        tree = BST_insertion(tree, aux);
+        tree = BST_insertion(tree, bufferString, 0);
         break;
 
       case 3:
-        printf("Enter with a value to consult: ");
-        scanf("%d", &aux);
+        printf("Enter with a string to consult: ");
+        fflush(stdin);
+        gets(bufferString);
 
-        auxTree = BST_consult(tree, aux);
+        auxTree = BST_consult(tree, bufferString);
 
-        if(auxTree && aux == auxTree->info)
-          printf("Value is in the tree.\n");
+        if(auxTree && strcmp(bufferString, auxTree->info) == 0)
+          printf("String is in the tree.\n");
         else
-          printf("Value isn't in the tree.\n");
+          printf("String isn't in the tree.\n");
 
         break;
 
@@ -55,9 +60,9 @@ int main()
         printf("4 - Post-fixed right.\n");
         printf("5 - Center-left.\n");
         printf("6 - Center-right.\n");
-        scanf("%d", &aux);
+        scanf("%d", &auxiliar);
 
-        switch(aux)
+        switch(auxiliar)
         {
           case 1:
             BST_print(tree, "PREFIXEDL");
@@ -91,10 +96,11 @@ int main()
         break;
 
       case 5:
-        printf("Enter a value which you want to delete: ");
-        scanf("%d", &aux);
+        printf("Enter a string which you want to delete: ");
+        fflush(stdin);
+        gets(bufferString);
 
-        tree = BST_remove(tree, aux);
+        tree = BST_remove(tree, bufferString);
         break;
 
       case 6:

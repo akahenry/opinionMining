@@ -1,6 +1,7 @@
 typedef struct STR_BSTNode
 {
-  int info;
+  char info[50];
+  int value;
   struct STR_BSTNode *left;
   struct STR_BSTNode *right;
 }BSTNode;
@@ -9,17 +10,17 @@ typedef struct STR_BSTNode
 /* Returns a NULL pointer */
 BSTNode* BST_initialize(void);
 
-/// BST_insertion: BSTNode* int -> BSTNode*
+/// BST_insertion: BSTNode* char* int -> BSTNode*
 /* Inserts a new node in the tree, returning the new tree with it. */
-BSTNode* BST_insertion(BSTNode* tree, int info);
+BSTNode* BST_insertion(BSTNode* tree, char* info, int value);
 
-/// BST_remove: BSTNode* int -> BSTNode*
+/// BST_remove: BSTNode* char* -> BSTNode*
 /* Given an info and a tree, it returns another tree without the node which had this info. */
-BSTNode* BST_remove(BSTNode* tree, int info);
+BSTNode* BST_remove(BSTNode* tree, char* info);
 
-/// BST_consult: BSTNode* int -> BSTNode*
+/// BST_consult: BSTNode* char* -> BSTNode*
 /* Given an info and a tree, it returns a pointer to a node which has this info. If there isn't a info with this info, returns NULL. */
-BSTNode* BST_consult(BSTNode* tree, int info);
+BSTNode* BST_consult(BSTNode* tree, char* info);
 
 /// BST_maxNode: BSTNode* -> BSTNode*
 /* Given a tree, this function returns a node which has the maximum key value. */
