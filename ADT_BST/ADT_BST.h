@@ -26,6 +26,10 @@ BSTNode* BST_consult(BSTNode* tree, char* info);
 /* Given a tree, this function returns a node which has the maximum key value. */
 BSTNode* BST_maxNode(BSTNode* tree);
 
+/// BST_height: BSTNode* -> int
+/* Returns the height of a BST */
+int BST_height(BSTNode* tree);
+
 /// BST_print: BSTNode* char* -> int
 /* Given a tree and a string, if given string is:
     - "PREFIXEDL": it prints according pre-fixed left algorythm.

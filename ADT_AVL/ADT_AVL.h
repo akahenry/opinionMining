@@ -56,6 +56,10 @@ AVLNode* AVL_consult(AVLNode* tree, char *info);
 /* Given a tree, this function returns a node which has the maximum key value. */
 AVLNode* AVL_maxNode(AVLNode* tree);
 
+/// AVL_height: AVLNode* -> int
+/* Returns the height of an AVL */
+int AVL_height(AVLNode* tree);
+
 /// AVL_print: AVLNode* char* -> int
 /* Given a tree and a string, if given string is:
     - "PREFIXEDL": it prints according pre-fixed left algorythm.

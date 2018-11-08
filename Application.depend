@@ -31,21 +31,21 @@
 
 1541468811 c:\users\henry bernardo\documents\ufrgs\2º semestre (2018-2)\cadeiras\estrutura de dados\trabalhos\opinionmining\application\adt_bst\adt_bst.h
 
-1541638197 source:c:\users\marcos\documents\trabalhos\ed\opinionmining\adt_avl\adt_avl.c
+1541708501 source:c:\users\marcos\documents\trabalhos\ed\opinionmining\adt_avl\adt_avl.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"ADT_AVL.h"
 
-1541639221 c:\users\marcos\documents\trabalhos\ed\opinionmining\adt_avl\adt_avl.h
+1541708496 c:\users\marcos\documents\trabalhos\ed\opinionmining\adt_avl\adt_avl.h
 
-1541638207 source:c:\users\marcos\documents\trabalhos\ed\opinionmining\adt_bst\adt_bst.c
+1541708258 source:c:\users\marcos\documents\trabalhos\ed\opinionmining\adt_bst\adt_bst.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"ADT_BST.h"
 
-1541633656 c:\users\marcos\documents\trabalhos\ed\opinionmining\adt_bst\adt_bst.h
+1541707636 c:\users\marcos\documents\trabalhos\ed\opinionmining\adt_bst\adt_bst.h
 
 1541637816 source:c:\users\marcos\documents\trabalhos\ed\opinionmining\main.c
 	<stdio.h>
