@@ -7,7 +7,6 @@
 
 #define STRINGSIZE 1000
 
-
 int main(int argc, char *argv[])
 {
   FILE* sentences;
@@ -37,54 +36,39 @@ int main(int argc, char *argv[])
     printf("Wrong parameters. To call this program, type: application <lexicographicWordsFile> <sentencesFile> <outputFile>.");
     flag = 1;
   }
+  else if((words = fopen(argv[1], "r")) == NULL)
+  {
+    printf("Error to open %s.", argv[1]);
+    flag = 1;
+  }
+  else if((sentences = fopen(argv[2], "r")) == NULL)
+  {
+    printf("Error to open %s.", argv[2]);
+    flag = 1;
+  }
+  else if((output = fopen(argv[3], "w")) == NULL)
+  {
+    printf("Error to open %s.", argv[3]);
+    flag = 1;
+  }
   else
   {
-    words = fopen(argv[1], "r");
-
-    if(words == NULL)
+    while(fgets(auxiliarString, STRINGSIZE, words))
     {
-      printf("Error to open %s.", argv[1]);
-      flag = 1;
-    }
-    else
-    {
-      sentences = fopen(argv[2], "r");
+      pointerString = strtok(auxiliarString, separateChars);
 
-      if(sentences == NULL)
+      if(auxiliarString != NULL)
       {
-        printf("Error to open %s.", argv[2]);
-        flag = 1;
-      }
-      else
-      {
-        output = fopen(argv[2], "w");
+        strcpy(bufferString, auxiliarString); // Saving word to use in insertion.
 
-        if(output == NULL)
-        {
-          printf("Error to open %s.", argv[3]);
-          flag = 1;
-        }
-        else
-        {
-          while(fgets(auxiliarString, STRINGSIZE, words))
-          {
-            pointerString = strtok(auxiliarString, separateChars);
+        pointerString = strtok(NULL, separateChars); // Word's value string.
 
-            if(auxiliarString != NULL)
-            {
-              strcpy(bufferString, auxiliarString); // Saving word to use in insertion.
+        auxiliarValue = atoi(pointerString); // Converting string to value.
 
-              pointerString = strtok(NULL, separateChars); // Word's value string.
+        bst_Tree = BST_insertion(bst_Tree, bufferString, auxiliarValue);  // Inserting in BST.
+        avl_Tree = AVL_insertion(avl_Tree, bufferString, factorFlag, auxiliarValue);  // Inserting in AVL.
 
-              auxiliarValue = atoi(pointerString); // Converting string to value.
-
-              bst_Tree = BST_insertion(bst_Tree, bufferString, auxiliarValue);  // Inserting in BST.
-              avl_Tree = AVL_insertion(avl_Tree, bufferString, factorFlag, auxiliarValue);  // Inserting in AVL.
-
-              word_count++; // Incrementing word count for future analysis
-            }
-          }
-        }
+        word_count++; // Incrementing word count for future analysis
       }
     }
   }
@@ -92,6 +76,13 @@ int main(int argc, char *argv[])
   printf("number of words: %d\n", word_count);
   printf("BST height: %d\n", BST_height(bst_Tree));
   printf("AVL height: %d\n", AVL_height(avl_Tree));
+
+  // Cleaning up
+  BST_destroy(bst_Tree);
+  AVL_destroy(avl_Tree);
+  fclose(words);
+  fclose(sentences);
+  fclose(output);
 
   return flag;
 }
