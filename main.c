@@ -15,6 +15,8 @@ int main(int argc, char *argv[])
   FILE* output;
 
   int flag = 0;
+  int factorFlagValue = 0;
+  int *factorFlag = &factorFlagValue;
   int auxiliarValue;
 
   char *pointerString;
@@ -75,11 +77,13 @@ int main(int argc, char *argv[])
               auxiliarValue = atoi(pointerString); // Converting string to value.
 
               bst_Tree = BST_insertion(bst_Tree, bufferString, auxiliarValue);  // Inserting in BST.
+              avl_Tree = AVL_insertion(avl_Tree, bufferString, factorFlag, auxiliarValue);  // Inserting in AVL.
             }
           }
         }
       }
     }
   }
+
   return flag;
 }

@@ -21,7 +21,7 @@ BSTNode* BST_insertion(BSTNode* tree, char *info, int value)
   }
   else
   {
-    tree = malloc(sizeof(BSTNode));
+    tree = (BSTNode*)malloc(sizeof(BSTNode));
     strcpy(tree->info, info);
     tree->value = value;
     tree->right = NULL;
