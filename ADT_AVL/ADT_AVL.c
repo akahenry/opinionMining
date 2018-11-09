@@ -4,6 +4,8 @@
 
 #include "ADT_AVL.h"
 
+comp_insert_AVL = 0;
+comp_search_AVL = 0;
 
 AVLNode* AVL_initialize(void)
 {
@@ -12,16 +14,21 @@ AVLNode* AVL_initialize(void)
 
 AVLNode* AVL_insertion(AVLNode* tree, char *info, int* flag, int value)
 {
+  comp_insert_AVL++;
   if(tree)
   {
+    comp_insert_AVL++;
     if(strcmp(info, tree->info) > 0)
     {
       tree->right = AVL_insertion(tree->right, info, flag, value);   // Inserts node
 
+      comp_insert_AVL++;
       if(*flag) // If flag != 0
       {
+        comp_insert_AVL++;
         if(tree->balanceFactor == -1)  // It'll be a problem 'cause we'll decrement it and the factor will be -2.
         {
+          comp_insert_AVL++;
           if(tree->right->balanceFactor == -1)   // If right child has -1 as factor, just a rotate to left fixes it.
             tree = AVL_rotateLeft(tree);
           else                                  // Else, a double rotate to left will fixes it (double rotate left = rotate right && rotate left, in this order).
@@ -32,6 +39,7 @@ AVLNode* AVL_insertion(AVLNode* tree, char *info, int* flag, int value)
         }
         else
         {
+          comp_insert_AVL++;
           if(tree->balanceFactor == 1)
             *flag = 0;
 
@@ -43,10 +51,13 @@ AVLNode* AVL_insertion(AVLNode* tree, char *info, int* flag, int value)
     {
       tree->left = AVL_insertion(tree->left, info, flag, value);   // Inserts node
 
+      comp_insert_AVL++;
       if(*flag) // If flag != 0
       {
+        comp_insert_AVL++;
         if(tree->balanceFactor == 1)  // It'll be a problem 'cause we'll increcrement it and the factor will be 2.
         {
+          comp_insert_AVL++;
           if(tree->left->balanceFactor == 1)   // If right child has 1 as factor, just a rotate to right fixes it.
             tree = AVL_rotateRight(tree);
           else                                  // Else, a double rotate to right will fixes it (double rotate right = rotate left && rotate right, in this order).
@@ -57,6 +68,7 @@ AVLNode* AVL_insertion(AVLNode* tree, char *info, int* flag, int value)
         }
         else
         {
+          comp_insert_AVL++;
           if(tree->balanceFactor == -1)
             *flag = 0;
 
@@ -166,12 +178,15 @@ AVLNode* AVL_consult(AVLNode* tree, char *info)
 {
   AVLNode* answer = NULL;  // Initializing return.
 
+  comp_search_AVL++;
   if(tree)  // If tree isn't a NULL pointer, it must check the info.
   {
+    comp_search_AVL++;
     if(strcmp(info, tree->info) == 0)
       answer = tree;   // answer = info
     else
     {
+      comp_search_AVL++;
       if(strcmp(info,tree->info) > 0)   // If info is greater than info's tree, the answer will be the result of right consult.
         answer = AVL_consult(tree->right, info);
       else                    // Else, it must be the result of left consult.
