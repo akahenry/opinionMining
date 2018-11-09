@@ -4,6 +4,8 @@
 
 #include "ADT_BST.h"
 
+comp_insert_BST = 0;
+comp_search_BST = 0;
 
 BSTNode* BST_initialize(void)
 {
@@ -12,8 +14,10 @@ BSTNode* BST_initialize(void)
 
 BSTNode* BST_insertion(BSTNode* tree, char *info, int value)
 {
+  comp_insert_BST++;
   if(tree)
   {
+    comp_insert_BST++;
     if(strcmp(info,tree->info) > 0)
       tree->right = BST_insertion(tree->right, info, value);
     else
@@ -78,12 +82,15 @@ BSTNode* BST_consult(BSTNode* tree, char* info)
 {
   BSTNode* answer = NULL;  // Initializing return.
 
+  comp_search_BST++;
   if(tree)  // If tree isn't a NULL pointer, it must check the info.
   {
+    comp_search_BST++;
     if(strcmp(info,tree->info) == 0)
       answer = tree;   // answer = info
     else
     {
+      comp_search_BST++;
       if(strcmp(info,tree->info) > 0)   // If info is greater than info's tree, the answer will be the result of right consult.
         answer = BST_consult(tree->right, info);
       else                    // Else, it must be the result of left consult.

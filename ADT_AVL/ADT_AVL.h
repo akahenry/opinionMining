@@ -7,6 +7,10 @@ typedef struct STR_AVLNode
   struct STR_AVLNode *right;
 }AVLNode;
 
+// Global variables used to count comparisons, that are used to compare performances
+int comp_insert_AVL;
+int comp_search_AVL;
+
 /// AVL_initialize: void -> AVLNode*
 /* Returns a NULL pointer */
 AVLNode* AVL_initialize(void);

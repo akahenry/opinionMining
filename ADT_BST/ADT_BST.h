@@ -6,6 +6,10 @@ typedef struct STR_BSTNode
   struct STR_BSTNode *right;
 }BSTNode;
 
+// Global variables used to count comparisons, that are used to compare performances
+int comp_insert_BST;
+int comp_search_BST;
+
 /// BST_initialize: void -> BSTNode*
 /* Returns a NULL pointer */
 BSTNode* BST_initialize(void);
