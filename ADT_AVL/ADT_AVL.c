@@ -12,7 +12,7 @@ AVLNode* AVL_initialize(void)
   return NULL;
 }
 
-AVLNode* AVL_insertion(AVLNode* tree, char *info, int* flag, int value)
+AVLNode* AVL_insert(AVLNode* tree, char *info, int* flag, int value)
 {
   comp_insert_AVL++;
   if(tree)
@@ -20,7 +20,7 @@ AVLNode* AVL_insertion(AVLNode* tree, char *info, int* flag, int value)
     comp_insert_AVL++;
     if(strcmp(info, tree->info) > 0)
     {
-      tree->right = AVL_insertion(tree->right, info, flag, value);   // Inserts node
+      tree->right = AVL_insert(tree->right, info, flag, value);   // Inserts node
 
       comp_insert_AVL++;
       if(*flag) // If flag != 0
@@ -49,7 +49,7 @@ AVLNode* AVL_insertion(AVLNode* tree, char *info, int* flag, int value)
     }
     else
     {
-      tree->left = AVL_insertion(tree->left, info, flag, value);   // Inserts node
+      tree->left = AVL_insert(tree->left, info, flag, value);   // Inserts node
 
       comp_insert_AVL++;
       if(*flag) // If flag != 0
@@ -174,7 +174,7 @@ AVLNode* AVL_remove(AVLNode* tree, char *info)
   return answer;
 }
 
-AVLNode* AVL_consult(AVLNode* tree, char *info)
+AVLNode* AVL_search(AVLNode* tree, char *info)
 {
   AVLNode* answer = NULL;  // Initializing return.
 
@@ -187,10 +187,10 @@ AVLNode* AVL_consult(AVLNode* tree, char *info)
     else
     {
       comp_search_AVL++;
-      if(strcmp(info,tree->info) > 0)   // If info is greater than info's tree, the answer will be the result of right consult.
-        answer = AVL_consult(tree->right, info);
-      else                    // Else, it must be the result of left consult.
-        answer = AVL_consult(tree->left, info);
+      if(strcmp(info,tree->info) > 0)   // If info is greater than info's tree, the answer will be the result of right search.
+        answer = AVL_search(tree->right, info);
+      else                    // Else, it must be the result of left search.
+        answer = AVL_search(tree->left, info);
     }
   }
 
@@ -235,15 +235,15 @@ int AVL_print(AVLNode* tree, char* operation)
   {
     if(strcmp(operation, "PREFIXED") == 1)
     {
-      answer = AVL_prefixed(tree, operation[8]);
+      answer = AVL_pre_order(tree, operation[8]);
     }
     else if(strcmp(operation, "POSTFIXED") == 1)
     {
-      answer = AVL_postfixed(tree, operation[9]);
+      answer = AVL_post_order(tree, operation[9]);
     }
     else if(strcmp(operation, "CENTER") == 1)
     {
-      answer = AVL_centerside(tree, operation[6]);
+      answer = AVL_in_order(tree, operation[6]);
     }
     else
       answer--;
@@ -254,21 +254,21 @@ int AVL_print(AVLNode* tree, char* operation)
   return answer;
 }
 
-int AVL_prefixed(AVLNode* tree, char side)
+int AVL_pre_order(AVLNode* tree, char side)
 {
   int answer = 1;
 
   if(side == 'L')
-    AVL_prefixedL(tree, 1);
+    AVL_pre_orderL(tree, 1);
   else if(side == 'R')
-    AVL_prefixedR(tree, 1);
+    AVL_pre_orderR(tree, 1);
   else
     answer--;   // Answer = 0;
 
   return answer;
 }
 
-void AVL_prefixedL(AVLNode* tree, int aux)
+void AVL_pre_orderL(AVLNode* tree, int aux)
 {
   int i; // Counter
 
@@ -281,20 +281,20 @@ void AVL_prefixedL(AVLNode* tree, int aux)
 
       puts(tree->info);
 
-      AVL_prefixedL(tree->left, aux+1);
-      AVL_prefixedL(tree->right, aux+1);
+      AVL_pre_orderL(tree->left, aux+1);
+      AVL_pre_orderL(tree->right, aux+1);
     }
   }
   else
   {
     puts(tree->info);
 
-    AVL_prefixedL(tree->left, aux);
-    AVL_prefixedL(tree->right, aux);
+    AVL_pre_orderL(tree->left, aux);
+    AVL_pre_orderL(tree->right, aux);
   }
 }
 
-void AVL_prefixedR(AVLNode* tree, int aux)
+void AVL_pre_orderR(AVLNode* tree, int aux)
 {
   int i; // Counter
 
@@ -307,34 +307,34 @@ void AVL_prefixedR(AVLNode* tree, int aux)
 
       puts(tree->info);
 
-      AVL_prefixedR(tree->right, aux+1);
-      AVL_prefixedR(tree->left, aux+1);
+      AVL_pre_orderR(tree->right, aux+1);
+      AVL_pre_orderR(tree->left, aux+1);
     }
   }
   else
   {
     puts(tree->info);
 
-    AVL_prefixedR(tree->right, aux);
-    AVL_prefixedR(tree->left, aux);
+    AVL_pre_orderR(tree->right, aux);
+    AVL_pre_orderR(tree->left, aux);
   }
 }
 
-int AVL_postfixed(AVLNode* tree, char side)
+int AVL_post_order(AVLNode* tree, char side)
 {
   int answer = 1;
 
   if(side == 'L')
-    AVL_postfixedL(tree, 1);
+    AVL_post_orderL(tree, 1);
   else if(side == 'R')
-    AVL_postfixedR(tree, 1);
+    AVL_post_orderR(tree, 1);
   else
     answer--;   // Answer = 0;
 
   return answer;
 }
 
-void AVL_postfixedL(AVLNode* tree, int aux)
+void AVL_post_orderL(AVLNode* tree, int aux)
 {
   int i; // Counter
 
@@ -342,8 +342,8 @@ void AVL_postfixedL(AVLNode* tree, int aux)
   {
     if(tree)
     {
-      AVL_postfixedL(tree->left, aux+1);
-      AVL_postfixedL(tree->right, aux+1);
+      AVL_post_orderL(tree->left, aux+1);
+      AVL_post_orderL(tree->right, aux+1);
 
       for(i = 0; i < aux; i++)  // Printing the "stairs".
         printf("=");
@@ -353,14 +353,14 @@ void AVL_postfixedL(AVLNode* tree, int aux)
   }
   else
   {
-    AVL_postfixedL(tree->left, aux);
-    AVL_postfixedL(tree->right, aux);
+    AVL_post_orderL(tree->left, aux);
+    AVL_post_orderL(tree->right, aux);
 
     puts(tree->info);
   }
 }
 
-void AVL_postfixedR(AVLNode* tree, int aux)
+void AVL_post_orderR(AVLNode* tree, int aux)
 {
   int i; // Counter
 
@@ -368,8 +368,8 @@ void AVL_postfixedR(AVLNode* tree, int aux)
   {
     if(tree)
     {
-      AVL_postfixedR(tree->right, aux+1);
-      AVL_postfixedR(tree->left, aux+1);
+      AVL_post_orderR(tree->right, aux+1);
+      AVL_post_orderR(tree->left, aux+1);
 
       for(i = 0; i < aux; i++)  // Printing the "stairs".
         printf("=");
@@ -379,28 +379,28 @@ void AVL_postfixedR(AVLNode* tree, int aux)
   }
   else
   {
-    AVL_postfixedR(tree->right, aux);
-    AVL_postfixedR(tree->left, aux);
+    AVL_post_orderR(tree->right, aux);
+    AVL_post_orderR(tree->left, aux);
 
     puts(tree->info);
   }
 }
 
-int AVL_centerside(AVLNode* tree, char side)
+int AVL_in_order(AVLNode* tree, char side)
 {
   int answer = 1;
 
   if(side == 'L')
-    AVL_centerL(tree, 1);
+    AVL_in_orderL(tree, 1);
   else if(side == 'R')
-    AVL_centerR(tree, 1);
+    AVL_in_orderR(tree, 1);
   else
     answer--;   // Answer = 0;
 
   return answer;
 }
 
-void AVL_centerL(AVLNode* tree, int aux)
+void AVL_in_orderL(AVLNode* tree, int aux)
 {
   int i; // Counter
 
@@ -408,27 +408,27 @@ void AVL_centerL(AVLNode* tree, int aux)
   {
     if(tree)
     {
-      AVL_centerL(tree->left, aux+1);
+      AVL_in_orderL(tree->left, aux+1);
 
       for(i = 0; i < aux; i++)  // Printing the "stairs".
         printf("=");
 
       puts(tree->info);
 
-      AVL_centerL(tree->right, aux+1);
+      AVL_in_orderL(tree->right, aux+1);
     }
   }
   else
   {
-    AVL_centerL(tree->left, aux);
+    AVL_in_orderL(tree->left, aux);
 
     puts(tree->info);
 
-    AVL_centerL(tree->right, aux);
+    AVL_in_orderL(tree->right, aux);
   }
 }
 
-void AVL_centerR(AVLNode* tree, int aux)
+void AVL_in_orderR(AVLNode* tree, int aux)
 {
   int i; // Counter
 
@@ -436,23 +436,23 @@ void AVL_centerR(AVLNode* tree, int aux)
   {
     if(tree)
     {
-      AVL_centerR(tree->right, aux+1);
+      AVL_in_orderR(tree->right, aux+1);
 
       for(i = 0; i < aux; i++)  // Printing the "stairs".
         printf("=");
 
       puts(tree->info);
 
-      AVL_centerR(tree->left, aux+1);
+      AVL_in_orderR(tree->left, aux+1);
     }
   }
   else
   {
-    AVL_centerR(tree->right, aux);
+    AVL_in_orderR(tree->right, aux);
 
     puts(tree->info);
 
-    AVL_centerR(tree->left, aux);
+    AVL_in_orderR(tree->left, aux);
   }
 }
 

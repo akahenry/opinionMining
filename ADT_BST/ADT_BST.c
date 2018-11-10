@@ -12,16 +12,16 @@ BSTNode* BST_initialize(void)
   return NULL;
 }
 
-BSTNode* BST_insertion(BSTNode* tree, char *info, int value)
+BSTNode* BST_insert(BSTNode* tree, char *info, int value)
 {
   comp_insert_BST++;
   if(tree)
   {
     comp_insert_BST++;
     if(strcmp(info,tree->info) > 0)
-      tree->right = BST_insertion(tree->right, info, value);
+      tree->right = BST_insert(tree->right, info, value);
     else
-      tree->left = BST_insertion(tree->left, info, value);
+      tree->left = BST_insert(tree->left, info, value);
   }
   else
   {
@@ -78,7 +78,7 @@ BSTNode* BST_remove(BSTNode* tree, char* info)
   return answer;
 }
 
-BSTNode* BST_consult(BSTNode* tree, char* info)
+BSTNode* BST_search(BSTNode* tree, char* info)
 {
   BSTNode* answer = NULL;  // Initializing return.
 
@@ -91,10 +91,10 @@ BSTNode* BST_consult(BSTNode* tree, char* info)
     else
     {
       comp_search_BST++;
-      if(strcmp(info,tree->info) > 0)   // If info is greater than info's tree, the answer will be the result of right consult.
-        answer = BST_consult(tree->right, info);
-      else                    // Else, it must be the result of left consult.
-        answer = BST_consult(tree->left, info);
+      if(strcmp(info,tree->info) > 0)   // If info is greater than info's tree, the answer will be the result of right search.
+        answer = BST_search(tree->right, info);
+      else                    // Else, it must be the result of left search.
+        answer = BST_search(tree->left, info);
     }
   }
 
@@ -137,17 +137,17 @@ int BST_print(BSTNode* tree, char* operation)
 
   if(tree)
   {
-    if(strcmp(operation, "PREFIXED") == 1)
+    if(strcmp(operation, "PREORDER") == 1)
     {
-      answer = BST_prefixed(tree, operation[8]);
+      answer = BST_pre_order(tree, operation[8]);
     }
-    else if(strcmp(operation, "POSTFIXED") == 1)
+    else if(strcmp(operation, "POSTORDER") == 1)
     {
-      answer = BST_postfixed(tree, operation[9]);
+      answer = BST_post_order(tree, operation[9]);
     }
-    else if(strcmp(operation, "CENTER") == 1)
+    else if(strcmp(operation, "INORDER") == 1)
     {
-      answer = BST_centerside(tree, operation[6]);
+      answer = BST_in_order(tree, operation[6]);
     }
     else
       answer--;
@@ -158,21 +158,21 @@ int BST_print(BSTNode* tree, char* operation)
   return answer;
 }
 
-int BST_prefixed(BSTNode* tree, char side)
+int BST_pre_order(BSTNode* tree, char side)
 {
   int answer = 1;
 
   if(side == 'L')
-    BST_prefixedL(tree, 1);
+    BST_pre_orderL(tree, 1);
   else if(side == 'R')
-    BST_prefixedR(tree, 1);
+    BST_pre_orderR(tree, 1);
   else
     answer--;   // Answer = 0;
 
   return answer;
 }
 
-void BST_prefixedL(BSTNode* tree, int aux)
+void BST_pre_orderL(BSTNode* tree, int aux)
 {
   int i; // Counter
 
@@ -185,20 +185,20 @@ void BST_prefixedL(BSTNode* tree, int aux)
 
       printf("%s\n", tree->info);
 
-      BST_prefixedL(tree->left, aux+1);
-      BST_prefixedL(tree->right, aux+1);
+      BST_pre_orderL(tree->left, aux+1);
+      BST_pre_orderL(tree->right, aux+1);
     }
   }
   else
   {
     printf("%s\n", tree->info);
 
-    BST_prefixedL(tree->left, aux);
-    BST_prefixedL(tree->right, aux);
+    BST_pre_orderL(tree->left, aux);
+    BST_pre_orderL(tree->right, aux);
   }
 }
 
-void BST_prefixedR(BSTNode* tree, int aux)
+void BST_pre_orderR(BSTNode* tree, int aux)
 {
   int i; // Counter
 
@@ -211,34 +211,34 @@ void BST_prefixedR(BSTNode* tree, int aux)
 
       printf("%s\n", tree->info);
 
-      BST_prefixedR(tree->right, aux+1);
-      BST_prefixedR(tree->left, aux+1);
+      BST_pre_orderR(tree->right, aux+1);
+      BST_pre_orderR(tree->left, aux+1);
     }
   }
   else
   {
     printf("%s\n", tree->info);
 
-    BST_prefixedR(tree->right, aux);
-    BST_prefixedR(tree->left, aux);
+    BST_pre_orderR(tree->right, aux);
+    BST_pre_orderR(tree->left, aux);
   }
 }
 
-int BST_postfixed(BSTNode* tree, char side)
+int BST_post_order(BSTNode* tree, char side)
 {
   int answer = 1;
 
   if(side == 'L')
-    BST_postfixedL(tree, 1);
+    BST_post_orderL(tree, 1);
   else if(side == 'R')
-    BST_postfixedR(tree, 1);
+    BST_post_orderR(tree, 1);
   else
     answer--;   // Answer = 0;
 
   return answer;
 }
 
-void BST_postfixedL(BSTNode* tree, int aux)
+void BST_post_orderL(BSTNode* tree, int aux)
 {
   int i; // Counter
 
@@ -246,8 +246,8 @@ void BST_postfixedL(BSTNode* tree, int aux)
   {
     if(tree)
     {
-      BST_postfixedL(tree->left, aux+1);
-      BST_postfixedL(tree->right, aux+1);
+      BST_post_orderL(tree->left, aux+1);
+      BST_post_orderL(tree->right, aux+1);
 
       for(i = 0; i < aux; i++)  // Printing the "stairs".
         printf("=");
@@ -257,14 +257,14 @@ void BST_postfixedL(BSTNode* tree, int aux)
   }
   else
   {
-    BST_postfixedL(tree->left, aux);
-    BST_postfixedL(tree->right, aux);
+    BST_post_orderL(tree->left, aux);
+    BST_post_orderL(tree->right, aux);
 
     printf("%s\n", tree->info);
   }
 }
 
-void BST_postfixedR(BSTNode* tree, int aux)
+void BST_post_orderR(BSTNode* tree, int aux)
 {
   int i; // Counter
 
@@ -272,8 +272,8 @@ void BST_postfixedR(BSTNode* tree, int aux)
   {
     if(tree)
     {
-      BST_postfixedR(tree->right, aux+1);
-      BST_postfixedR(tree->left, aux+1);
+      BST_post_orderR(tree->right, aux+1);
+      BST_post_orderR(tree->left, aux+1);
 
       for(i = 0; i < aux; i++)  // Printing the "stairs".
         printf("=");
@@ -283,28 +283,28 @@ void BST_postfixedR(BSTNode* tree, int aux)
   }
   else
   {
-    BST_postfixedR(tree->right, aux);
-    BST_postfixedR(tree->left, aux);
+    BST_post_orderR(tree->right, aux);
+    BST_post_orderR(tree->left, aux);
 
     printf("%s\n", tree->info);
   }
 }
 
-int BST_centerside(BSTNode* tree, char side)
+int BST_in_order(BSTNode* tree, char side)
 {
   int answer = 1;
 
   if(side == 'L')
-    BST_centerL(tree, 1);
+    BST_in_orderL(tree, 1);
   else if(side == 'R')
-    BST_centerR(tree, 1);
+    BST_in_orderR(tree, 1);
   else
     answer--;   // Answer = 0;
 
   return answer;
 }
 
-void BST_centerL(BSTNode* tree, int aux)
+void BST_in_orderL(BSTNode* tree, int aux)
 {
   int i; // Counter
 
@@ -312,27 +312,27 @@ void BST_centerL(BSTNode* tree, int aux)
   {
     if(tree)
     {
-      BST_centerL(tree->left, aux+1);
+      BST_in_orderL(tree->left, aux+1);
 
       for(i = 0; i < aux; i++)  // Printing the "stairs".
         printf("=");
 
       printf("%s\n", tree->info);
 
-      BST_centerL(tree->right, aux+1);
+      BST_in_orderL(tree->right, aux+1);
     }
   }
   else
   {
-    BST_centerL(tree->left, aux);
+    BST_in_orderL(tree->left, aux);
 
     printf("%s\n", tree->info);
 
-    BST_centerL(tree->right, aux);
+    BST_in_orderL(tree->right, aux);
   }
 }
 
-void BST_centerR(BSTNode* tree, int aux)
+void BST_in_orderR(BSTNode* tree, int aux)
 {
   int i; // Counter
 
@@ -340,23 +340,23 @@ void BST_centerR(BSTNode* tree, int aux)
   {
     if(tree)
     {
-      BST_centerR(tree->right, aux+1);
+      BST_in_orderR(tree->right, aux+1);
 
       for(i = 0; i < aux; i++)  // Printing the "stairs".
         printf("=");
 
       printf("%s\n", tree->info);
 
-      BST_centerR(tree->left, aux+1);
+      BST_in_orderR(tree->left, aux+1);
     }
   }
   else
   {
-    BST_centerR(tree->right, aux);
+    BST_in_orderR(tree->right, aux);
 
     printf("%s\n", tree->info);
 
-    BST_centerR(tree->left, aux);
+    BST_in_orderR(tree->left, aux);
   }
 }
 
