@@ -59,14 +59,14 @@ int main(int argc, char *argv[])
 
       if(auxiliarString != NULL)
       {
-        strcpy(bufferString, auxiliarString); // Saving word to use in insertion.
+        strcpy(bufferString, auxiliarString); // Saving word to use in insert.
 
         pointerString = strtok(NULL, separateChars); // Word's value string.
 
         auxiliarValue = atoi(pointerString); // Converting string to value.
 
-        bst_Tree = BST_insertion(bst_Tree, bufferString, auxiliarValue);  // Inserting in BST.
-        avl_Tree = AVL_insertion(avl_Tree, bufferString, factorFlag, auxiliarValue);  // Inserting in AVL.
+        bst_Tree = BST_insert(bst_Tree, bufferString, auxiliarValue);  // Inserting in BST.
+        avl_Tree = AVL_insert(avl_Tree, bufferString, factorFlag, auxiliarValue);  // Inserting in AVL.
 
         word_count++; // Incrementing word count for future analysis
       }
