@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "ADT_BST/ADT_BST.h"
 #include "ADT_AVL/ADT_AVL.h"
@@ -9,6 +10,8 @@
 
 int main(int argc, char *argv[])
 {
+  int i;
+
   FILE* sentences;
   FILE* words;
   FILE* output;
@@ -23,7 +26,14 @@ int main(int argc, char *argv[])
   char *pointerString;
   char bufferString[STRINGSIZE];
   char auxiliarString[STRINGSIZE];
-  char separateChars[3] = "\t\n";
+  char sentenceString[STRINGSIZE]; // used for reading the sentences
+  const char separator_lex[4] = " \t\n";
+
+  char *word_review;
+  const char separator_sentences[3] = " \t";
+  int sentiment = 0;
+  BSTNode* aux_node_bst;
+  AVLNode* aux_node_avl;
 
   BSTNode* bst_Tree;
   AVLNode* avl_Tree;
@@ -55,13 +65,13 @@ int main(int argc, char *argv[])
   {
     while(fgets(auxiliarString, STRINGSIZE, words))
     {
-      pointerString = strtok(auxiliarString, separateChars);
+      pointerString = strtok(auxiliarString, separator_lex);
 
       if(auxiliarString != NULL)
       {
         strcpy(bufferString, auxiliarString); // Saving word to use in insert.
 
-        pointerString = strtok(NULL, separateChars); // Word's value string.
+        pointerString = strtok(NULL, separator_lex); // Word's value string.
 
         auxiliarValue = atoi(pointerString); // Converting string to value.
 
@@ -70,6 +80,47 @@ int main(int argc, char *argv[])
 
         word_count++; // Incrementing word count for future analysis
       }
+    }
+
+    // For each word in the sentences file
+    while(fgets(sentenceString, STRINGSIZE, sentences))
+    {
+      strcpy(auxiliarString, sentenceString);
+
+      // Deletes tab at the end of each sentence
+      for(i = 0; auxiliarString[i]; i++){
+        if(auxiliarString[i] == '\t')
+        {
+          if(auxiliarString[i+1] == '\n')
+          {
+            auxiliarString[i] = '\n';
+            auxiliarString[i+1] = '\0';
+          }
+        }
+      }
+
+      // For each word in the sentence
+      word_review = strtok(sentenceString, separator_sentences);
+      while(word_review != NULL) {
+
+        // Makes the whole string lowercase
+        for(i = 0; word_review[i]; i++){
+          word_review[i] = tolower(word_review[i]);
+        }
+
+        // Calculate sentiment (per word)
+        aux_node_avl = AVL_search(avl_Tree, word_review);
+        if(aux_node_avl != NULL)
+          sentiment += aux_node_avl->value;
+
+        // Get next word
+        word_review = strtok(NULL, separator_sentences);
+      }
+
+      // Printing to file
+      fprintf(output, "%d ", sentiment);
+      fputs(auxiliarString, output);
+      sentiment = 0;
     }
 
     printf("\nnumber of words: %d\n\n", word_count);
@@ -81,6 +132,8 @@ int main(int argc, char *argv[])
     printf("AVL height: %d\n", AVL_height(avl_Tree));
     printf("comp_insert_AVL: %d\n", comp_insert_AVL);
     printf("comp_search_AVL: %d\n\n", comp_search_AVL);
+
+    //BST_print(bst_Tree, "PREORDERL");
   }
 
   // Cleaning up
