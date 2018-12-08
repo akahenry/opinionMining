@@ -54,3 +54,28 @@
 	"ADT_BST/ADT_BST.h"
 	"ADT_AVL/ADT_AVL.h"
 
+1544296477 source:c:\users\cepht\onedrive\documents\ufrgs\2º semestre (2018-2)\cadeiras\estrutura de dados\trabalhos\opinionmining-python-plot\adt_avl\adt_avl.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ADT_AVL.h"
+
+1544296566 c:\users\cepht\onedrive\documents\ufrgs\2º semestre (2018-2)\cadeiras\estrutura de dados\trabalhos\opinionmining-python-plot\adt_avl\adt_avl.h
+
+1544296578 source:c:\users\cepht\onedrive\documents\ufrgs\2º semestre (2018-2)\cadeiras\estrutura de dados\trabalhos\opinionmining-python-plot\adt_bst\adt_bst.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ADT_BST.h"
+
+1543280391 c:\users\cepht\onedrive\documents\ufrgs\2º semestre (2018-2)\cadeiras\estrutura de dados\trabalhos\opinionmining-python-plot\adt_bst\adt_bst.h
+
+1544296434 source:c:\users\cepht\onedrive\documents\ufrgs\2º semestre (2018-2)\cadeiras\estrutura de dados\trabalhos\opinionmining-python-plot\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<sys/time.h>
+	"ADT_BST/ADT_BST.h"
+	"ADT_AVL/ADT_AVL.h"
+

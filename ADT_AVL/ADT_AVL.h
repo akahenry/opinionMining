@@ -145,7 +145,7 @@ int AVL_in_order(AVLNode* tree, char side);
    Aux could be:
       - 0: will print number above number.
       - 1: will print the tree "like stairs". */
-void AVL_centerL(AVLNode* tree, int aux);
+void AVL_in_orderL(AVLNode* tree, int aux);
 
 /// AVL_centerR: AVLNode* int -> void
 /* Given a tree and an auxiliar parameter, it prints the tree according to the right in-order traversal algorythm.

@@ -1,0 +1,9 @@
+amount_of_data 1999
+BST_height 1999
+AVL_height 11
+comp_insert_BST 3996001
+comp_insert_AVL 73757
+comp_search_BST 256743439
+comp_search_AVL 3381679
+BST_time 973
+AVL_time 47
