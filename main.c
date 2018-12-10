@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
   AVLNode* avl_Tree;
 
   SYSTEMTIME auxiliarTime;
-  long bst_milliseconds, avl_milliseconds, T0ms, T1ms;
+  long bst_milliseconds = 0, avl_milliseconds = 0, T0ms, T1ms;
 
   bst_Tree = BST_initialize();
   avl_Tree = AVL_initialize();
@@ -150,7 +150,6 @@ int main(int argc, char *argv[])
     rewind(output);
     rewind(words);
 
-
     /// BST Mode
     // Initializing T0 to calculate how many milliseconds it took
     GetSystemTime(&auxiliarTime);
@@ -209,6 +208,10 @@ int main(int argc, char *argv[])
         // Get next word
         word_review = strtok(NULL, separator_sentences);
       }
+
+      // Printing to file
+      fprintf(output, "%d ", sentiment);
+      fputs(auxiliarString, output);
       sentiment = 0;
     }
     // Setting T1 to calculate the time taken with BST Mode.
