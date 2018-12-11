@@ -1,9 +1,0 @@
-ammount_of_data 2000
-BST_height 26
-AVL_height 14
-BST_comp_insert 50096
-AVL_comp_insert 72932
-BST_comp_search 750000
-AVL_comp_search 683888
-BST_time 999
-AVL_time 650
