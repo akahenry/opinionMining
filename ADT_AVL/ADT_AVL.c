@@ -4,8 +4,8 @@
 
 #include "ADT_AVL.h"
 
-comp_insert_AVL = 0;
-comp_search_AVL = 0;
+int comp_insert_AVL = 0;
+int comp_search_AVL = 0;
 
 AVLNode* AVL_initialize(void)
 {

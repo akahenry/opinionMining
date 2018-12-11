@@ -4,8 +4,8 @@
 
 #include "ADT_BST.h"
 
-comp_insert_BST = 0;
-comp_search_BST = 0;
+int comp_insert_BST = 0;
+int comp_search_BST = 0;
 
 BSTNode* BST_initialize(void)
 {
